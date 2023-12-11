@@ -22,14 +22,14 @@ let carrito = [];
 function agregarAlCarrito(id) {
   const producto = productos.find(prod => prod.id === id);
   if (producto) {
-      if (!carrito.includes(producto)) {
-          carrito.push(producto);
-          alert(`El ${producto.nombre} ha sido agregado al carrito.`);
-      } else {
-          alert(`El ${producto.nombre} ya está en el carrito.`);
-      }
+    if (!carrito.includes(producto)) {
+      carrito.push(producto);
+      alert(`El ${producto.nombre} ha sido agregado al carrito.`);
+    } else {
+      alert(`El ${producto.nombre} ya está en el carrito.`);
+    }
   } else {
-      alert(`El producto con el ID ${id} no existe.`);
+    alert(`El producto con el ID ${id} no existe.`);
   }
 }
 
@@ -49,15 +49,16 @@ function mostrarCarrito() {
 //   }
 //   agregarMas = confirm('¿Desea agregar más productos al carrito?');
 // }
+
 let agregarMas = true;
 while (agregarMas) {
-    const idProducto = parseInt(prompt('Ingrese el ID del producto que desea agregar al carrito:'));
-    if (isNaN(idProducto) || idProducto < 1 || idProducto > productos.length) {
-        alert('Debe ingresar un número válido que corresponda a un ID de producto existente.');
-    } else {
-        agregarAlCarrito(idProducto);
-    }
-    agregarMas = confirm('¿Desea agregar más productos al carrito?');
+  const idProducto = parseInt(prompt('Ingrese el ID del producto que desea agregar al carrito:'));
+  if (isNaN(idProducto) || idProducto < 1 || idProducto > productos.length) {
+    alert('Debe ingresar un número válido que corresponda a un ID de producto existente.');
+  } else {
+    agregarAlCarrito(idProducto);
+  }
+  agregarMas = confirm('¿Desea agregar más productos al carrito?');
 }
 
 const verCarrito = confirm('¿Desea ver el carrito?');
