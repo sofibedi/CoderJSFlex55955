@@ -1,163 +1,90 @@
-// // Definición de productos (array de objetos)
-// const barberiaProductos = [
-//   { id: 1, nombre: 'Corte de Pelo', precio: 20 },
-//   { id: 2, nombre: 'Afeitado', precio: 15 },
-//   // Agrega más productos según sea necesario
-// ];
-
-// // Carrito de compras (array vacío)
-// let carrito = [];
-
-// function agregarAlCarrito(id) {
-//   const producto = barberiaProductos.find(prod => prod.id === id);
-//   if (producto) {
-//     if (!carrito.includes(producto)) {
-//       carrito.push(producto);
-//       alert(`El ${producto.nombre} ha sido agregado al carrito.`);
-//     } else {
-//       alert(`El ${producto.nombre} ya está en el carrito.`);
-//     }
-//   } else {
-//     alert(`El producto con el ID ${id} no existe.`);
-//   }
-//   updateCart();
-// }
-
-// function updateCart() {
-//   localStorage.setItem('cart', JSON.stringify(carrito));
-//   renderCart();
-//   renderProducts(); // Actualiza la lista de productos al agregar al carrito
-// }
-
-// // function renderProducts() {
-// //   const productListElement = document.getElementById('product-list');
-// //   productListElement.innerHTML = ''; // Limpiar la lista antes de volver a renderizar
-
-// //   barberiaProductos.forEach(producto => {
-// //     const productElement = document.createElement('div');
-// //     productElement.classList.add('col-md-6', 'mb-4');
-// //     productElement.innerHTML = `
-// //       <div class="card">
-// //         <div class="card-body">
-// //           <h5 class="card-title">${producto.nombre}</h5>
-// //           <p class="card-text">$${producto.precio.toFixed(2)}</p>
-// //           <button class="btn btn-primary" onclick="agregarAlCarrito(${producto.id})">Agregar al Carrito</button>
-// //         </div>
-// //       </div>
-// //     `;
-// //     productListElement.appendChild(productElement);
-// //   });
-// // }
-
-// // function initBarbershop() {
-// //   renderProducts();
-// //   renderCart();
-// // }
-
-// // ... (código anterior)
-
-// function renderProducts() {
-//   const productListElement = document.getElementById('product-list');
-//   productListElement.innerHTML = ''; // Limpiar la lista antes de volver a renderizar
-
-//   barberiaProductos.forEach(producto => {
-//     const productElement = document.createElement('div');
-//     productElement.classList.add('col-md-6', 'mb-4');
-//     productElement.innerHTML = `
-//       <div class="card">
-//         <div class="card-body">
-//           <h5 class="card-title">${producto.nombre}</h5>
-//           <p class="card-text">$${producto.precio.toFixed(2)}</p>
-//           <button class="btn btn-primary" onclick="agregarAlCarrito(${producto.id})">Agregar al Carrito</button>
-//         </div>
-//       </div>
-//     `;
-//     productListElement.appendChild(productElement);
-//   });
-// }
-
-// function initBarbershop() {
-//   renderProducts();
-//   renderCart(); // Llamada a renderCart después de renderProducts
-// }
-
-// // ... (código posterior)
-
-
-// // Inicializar la tienda
-// initBarbershop();
-
-
-// Definición de productos (array de objetos)
-const barberiaProductos = [
+const productos = [
   { id: 1, nombre: 'Corte de Pelo', precio: 20 },
   { id: 2, nombre: 'Afeitado', precio: 15 },
-  // Agrega más productos según sea necesario
+  { id: 3, nombre: 'Crema para Barba', precio: 25 },
+  { id: 4, nombre: 'Navaja de Afeitar', precio: 30 },
+  { id: 5, nombre: 'Aceite para Barba', precio: 18 },
+  { id: 6, nombre: 'Set de Barbería Completo', precio: 80 },
+  { id: 7, nombre: 'Peine de Madera', precio: 10 },
+  { id: 8, nombre: 'Tijeras de Barbero', precio: 22 },
+  { id: 9, nombre: 'Gel de Peinado', precio: 12 },
+  { id: 10, nombre: 'Capa de Barbero', precio: 15 },
+  { id: 11, nombre: 'Bálsamo para Barba', precio: 28 },
 ];
 
-// Carrito de compras (array vacío)
-let carrito = [];
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 function agregarAlCarrito(id) {
-  const producto = barberiaProductos.find(prod => prod.id === id);
+  const producto = productos.find(prod => prod.id === id);
   if (producto) {
-    if (!carrito.includes(producto)) {
-      carrito.push(producto);
-      alert(`El ${producto.nombre} ha sido agregado al carrito.`);
-    } else {
-      alert(`El ${producto.nombre} ya está en el carrito.`);
-    }
+    carrito.push(producto);
+    actualizarCarrito();
+    console.log(`El ${producto.nombre} ha sido agregado al carrito.`);
   } else {
-    alert(`El producto con el ID ${id} no existe.`);
+    console.warn('El producto no existe.');
   }
-  updateCart();
 }
 
-function updateCart() {
-  localStorage.setItem('cart', JSON.stringify(carrito));
-  renderCart();
-  renderProducts();
+function mostrarCarrito() {
+  console.table(carrito);
 }
 
-function renderProducts() {
-  const productListElement = document.getElementById('product-list');
-  productListElement.innerHTML = '';
-
-  barberiaProductos.forEach(producto => {
-    const productElement = document.createElement('div');
-    productElement.classList.add('col-md-6', 'mb-4');
-    productElement.innerHTML = `
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">${producto.nombre}</h5>
-          <p class="card-text">$${producto.precio.toFixed(2)}</p>
-          <button class="btn btn-primary" onclick="agregarAlCarrito(${producto.id})">Agregar al Carrito</button>
-        </div>
-      </div>
-    `;
-    productListElement.appendChild(productElement);
-  });
+function actualizarCarrito() {
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+  renderizarCarrito();
 }
 
-function renderCart() {
-  const cartItemsElement = document.getElementById('cart-items');
-  const cartTotalElement = document.getElementById('cart-total');
-  const cartCountElement = document.getElementById('cart-count');
+function renderizarCarrito() {
+  const carritoListElement = document.getElementById('carrito-list');
+  const carritoTotalElement = document.getElementById('carrito-total');
 
-  cartItemsElement.innerHTML = '';
+  carritoListElement.innerHTML = '';
+
   let total = 0;
 
   carrito.forEach(item => {
-    const cartItemElement = document.createElement('li');
-    cartItemElement.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
-    cartItemsElement.appendChild(cartItemElement);
+    const carritoItemElement = document.createElement('li');
+    carritoItemElement.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
+    carritoListElement.appendChild(carritoItemElement);
     total += item.precio;
   });
 
-  cartTotalElement.textContent = total.toFixed(2);
-  cartCountElement.textContent = carrito.length.toString();
+  carritoTotalElement.textContent = `Total: $${total.toFixed(2)}`;
 }
 
-// Inicializar la tienda
-renderProducts();
-renderCart();
+function finalizarCompra() {
+  if (carrito.length > 0) {
+    alert('¡Compra finalizada! Gracias por tu compra.');
+    carrito = [];
+    actualizarCarrito();
+  } else {
+    alert('No hay productos en el carrito. Agrega productos antes de finalizar la compra.');
+  }
+}
+
+function initCatalogo() {
+  const catalogoElement = document.getElementById('catalogo');
+
+  productos.forEach(producto => {
+    const productoElement = document.createElement('div');
+    productoElement.classList.add('producto');
+    productoElement.innerHTML = `
+      <h3>${producto.nombre}</h3>
+      <p>Precio: $${producto.precio.toFixed(2)}</p>
+      <button onclick="agregarAlCarrito(${producto.id})">Agregar al Carrito</button>
+    `;
+    catalogoElement.appendChild(productoElement);
+  });
+}
+
+// Resto del código sin cambios
+
+
+function initCarrito() {
+  renderizarCarrito();
+  const finalizarCompraButton = document.getElementById('finalizar-compra');
+  finalizarCompraButton.addEventListener('click', finalizarCompra);
+}
+
+initCatalogo();
+initCarrito();
