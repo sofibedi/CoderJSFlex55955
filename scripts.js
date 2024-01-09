@@ -47,7 +47,7 @@ function agregarAlCarrito(id) {
   if (producto) {
     carrito.push(producto);
     actualizarCarrito();
-    mostrarNotificacion(`El ${producto.nombre} ha sido agregado al carrito.`, 'success');
+    mostrarNotificacion(` ${producto.nombre} ha sido agregado al carrito.`, 'success');
   } else {
     mostrarNotificacion('El producto no existe.', 'danger');
   }
@@ -58,7 +58,7 @@ function quitarDelCarrito(id) {
   if (index !== -1) {
     const productoQuitado = carrito.splice(index, 1)[0];
     actualizarCarrito();
-    mostrarNotificacion(`El ${productoQuitado.nombre} ha sido eliminado del carrito.`, 'warning');
+    mostrarNotificacion(` ${productoQuitado.nombre} ha sido eliminado del carrito.`, 'warning');
   } else {
     mostrarNotificacion('El producto no está en el carrito.', 'danger');
   }
