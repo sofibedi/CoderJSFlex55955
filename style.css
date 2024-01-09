@@ -1,16 +1,15 @@
 /* Ajustes para las notificaciones */
 #notificaciones {
   position: fixed;
-  top: 10px; /* Ajusta la distancia desde la parte superior */
-  right: 10px; /* Ajusta la distancia desde la derecha */
-  z-index: 1000;
+  top: 10px;
+  right: 10px;
+  z-index: 1100; /* Asegúrate de que el z-index sea mayor que el de la navbar */
 }
 
 .alert {
   margin-bottom: 10px;
 }
 
-/* Resto del código CSS */
 /* Reset estandarizado */
 * {
   margin: 0;
@@ -24,11 +23,13 @@ body {
 }
 
 .navbar.fixed-top {
+  z-index: 1000;
   transition: background-color 0.3s ease-in-out;
 }
 
 .navbar.fixed-top.scrolled {
   background-color: #343a40;
+  z-index: 1100; /* Asegúrate de que el z-index sea mayor que el de las notificaciones cuando la navbar está fija */
 }
 
 header {
@@ -54,19 +55,18 @@ header {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   width: 100%;
   display: flex;
-  flex-direction: column; /* Alinear elementos internos en columna */
-  justify-content: space-between; /* Espaciado uniforme entre los elementos internos */
+  flex-direction: column;
+  justify-content: space-between;
   position: relative;
 }
 
 .producto-imagen {
-  height: 150px; /* Ajusta la altura según tus necesidades */
-  width: 100%; /* Ajusta el ancho al 100% */
-  object-fit: cover; /* Mantiene la proporción de aspecto y cubre el contenedor */
+  height: 150px;
+  width: 100%;
+  object-fit: cover;
   border-radius: 10px;
   margin-bottom: 10px;
 }
-
 
 #catalogo {
   display: grid;
