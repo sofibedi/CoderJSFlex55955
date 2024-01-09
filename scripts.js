@@ -25,6 +25,17 @@ function agregarAlCarrito(id) {
   }
 }
 
+function quitarDelCarrito(id) {
+  const index = carrito.findIndex(item => item.id === id);
+  if (index !== -1) {
+    const productoQuitado = carrito.splice(index, 1)[0];
+    actualizarCarrito();
+    console.log(`El ${productoQuitado.nombre} ha sido eliminado del carrito.`);
+  } else {
+    console.warn('El producto no está en el carrito.');
+  }
+}
+
 function mostrarCarrito() {
   console.table(carrito);
 }
@@ -44,7 +55,10 @@ function renderizarCarrito() {
 
   carrito.forEach(item => {
     const carritoItemElement = document.createElement('li');
-    carritoItemElement.textContent = `${item.nombre} - $${item.precio.toFixed(2)}`;
+    carritoItemElement.innerHTML = `
+      <span>${item.nombre} - $${item.precio.toFixed(2)}</span>
+      <button class="btn btn-danger btn-sm ml-2" onclick="quitarDelCarrito(${item.id})">Quitar</button>
+    `;
     carritoListElement.appendChild(carritoItemElement);
     total += item.precio;
   });
@@ -71,14 +85,11 @@ function initCatalogo() {
     productoElement.innerHTML = `
       <h3>${producto.nombre}</h3>
       <p>Precio: $${producto.precio.toFixed(2)}</p>
-      <button onclick="agregarAlCarrito(${producto.id})">Agregar al Carrito</button>
+      <button onclick="agregarAlCarrito(${producto.id})" class="btn btn-agregar">Agregar al Carrito</button>
     `;
     catalogoElement.appendChild(productoElement);
   });
 }
-
-// Resto del código sin cambios
-
 
 function initCarrito() {
   renderizarCarrito();
