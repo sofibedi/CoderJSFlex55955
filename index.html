@@ -12,7 +12,13 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" href="#">Los Santos Barber Shop</a>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <button id="finalizar-compra" class="btn btn-primary" onclick="mostrarFormularioCheckout()">Finalizar Compra</button>
+            </li>
+        </ul>
     </nav>
+
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-8" id="catalogo"></div>
@@ -20,11 +26,9 @@
                 <h2>Carrito de Compras</h2>
                 <ul id="carrito-list"></ul>
                 <p id="carrito-total"></p>
-                <button id="finalizar-compra" class="btn btn-primary">Finalizar Compra</button>
-
                 <div id="checkout-form" style="display: none;">
                     <h2>Información de Pago</h2>
-                    <button id="realizar-pago" class="btn btn-primary">Realizar Pago</button>
+                    <button id="realizar-pago" class="btn btn-primary" onclick="procesarPago()">Realizar Pago</button>
                 </div>
             </div>
         </div>
