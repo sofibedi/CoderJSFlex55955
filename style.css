@@ -61,12 +61,12 @@ header {
 
 .producto-imagen {
   height: 150px; /* Ajusta la altura según tus necesidades */
-  background-size: cover;
-  background-position: center;
-  filter: blur(8px);
+  width: 100%; /* Ajusta el ancho al 100% */
+  object-fit: cover; /* Mantiene la proporción de aspecto y cubre el contenedor */
   border-radius: 10px;
   margin-bottom: 10px;
 }
+
 
 #catalogo {
   display: grid;
