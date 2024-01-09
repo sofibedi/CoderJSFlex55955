@@ -1,3 +1,16 @@
+/* Ajustes para las notificaciones */
+#notificaciones {
+  position: fixed;
+  top: 10px; /* Ajusta la distancia desde la parte superior */
+  right: 10px; /* Ajusta la distancia desde la derecha */
+  z-index: 1000;
+}
+
+.alert {
+  margin-bottom: 10px;
+}
+
+/* Resto del código CSS */
 /* Reset estandarizado */
 * {
   margin: 0;
