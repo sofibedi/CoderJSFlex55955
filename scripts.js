@@ -15,14 +15,31 @@ const productos = [
 
 let carrito = JSON.parse(sessionStorage.getItem('carrito')) || [];
 
+function getProductById(id) {
+  return productos.find(prod => prod.id === id);
+}
+
+function mostrarNotificacion(mensaje, tipo) {
+  const notificacionesElement = document.getElementById('notificaciones');
+  const notificacion = document.createElement('div');
+  notificacion.classList.add('alert', `alert-${tipo}`);
+  notificacion.textContent = mensaje;
+  notificacionesElement.appendChild(notificacion);
+
+  // Desaparece la notificación después de unos segundos (opcional)
+  setTimeout(() => {
+    notificacionesElement.removeChild(notificacion);
+  }, 3000); // Después de 3 segundos (ajusta según tus preferencias)
+}
+
 function agregarAlCarrito(id) {
   const producto = getProductById(id);
   if (producto) {
     carrito.push(producto);
     actualizarCarrito();
-    console.log(`El ${producto.nombre} ha sido agregado al carrito.`);
+    mostrarNotificacion(`El ${producto.nombre} ha sido agregado al carrito.`, 'success');
   } else {
-    console.warn('El producto no existe.');
+    mostrarNotificacion('El producto no existe.', 'danger');
   }
 }
 
@@ -31,14 +48,10 @@ function quitarDelCarrito(id) {
   if (index !== -1) {
     const productoQuitado = carrito.splice(index, 1)[0];
     actualizarCarrito();
-    console.log(`El ${productoQuitado.nombre} ha sido eliminado del carrito.`);
+    mostrarNotificacion(`El ${productoQuitado.nombre} ha sido eliminado del carrito.`, 'warning');
   } else {
-    console.warn('El producto no está en el carrito.');
+    mostrarNotificacion('El producto no está en el carrito.', 'danger');
   }
-}
-
-function getProductById(id) {
-  return productos.find(prod => prod.id === id);
 }
 
 function mostrarCarrito() {
@@ -75,7 +88,7 @@ function finalizarCompra() {
   if (carrito.length > 0) {
     mostrarFormularioCheckout();
   } else {
-    alert('No hay productos en el carrito. Agrega productos antes de finalizar la compra.');
+    mostrarNotificacion('No hay productos en el carrito. Agrega productos antes de finalizar la compra.', 'warning');
   }
 }
 
@@ -90,12 +103,12 @@ function procesarPago() {
   const expiryDate = document.getElementById('expiry-date').value;
 
   if (cardholderName && cardNumber && expiryDate) {
-    alert(`Pago realizado con éxito. Titular: ${cardholderName}, Número de Tarjeta: ${cardNumber}, Fecha de Vencimiento: ${expiryDate}`);
+    mostrarNotificacion(`Pago realizado con éxito. Titular: ${cardholderName}, Número de Tarjeta: ${cardNumber}, Fecha de Vencimiento: ${expiryDate}`, 'success');
     carrito = [];
     actualizarCarrito();
     ocultarFormularioCheckout();
   } else {
-    alert('Por favor, completa todos los campos del formulario de pago.');
+    mostrarNotificacion('Por favor, completa todos los campos del formulario de pago.', 'danger');
   }
 }
 
