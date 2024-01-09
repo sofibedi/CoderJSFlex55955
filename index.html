@@ -14,7 +14,7 @@
         <a class="navbar-brand" href="#">Los Santos Barber Shop</a>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <button id="finalizar-compra" class="btn btn-primary" onclick="mostrarFormularioCheckout()">Finalizar Compra</button>
+                <button id="finalizar-compra" class="btn btn-primary" onclick="finalizarCompra()">Finalizar Compra</button>
             </li>
         </ul>
     </nav>
@@ -28,7 +28,18 @@
                 <p id="carrito-total"></p>
                 <div id="checkout-form" style="display: none;">
                     <h2>Información de Pago</h2>
-                    <button id="realizar-pago" class="btn btn-primary" onclick="procesarPago()">Realizar Pago</button>
+                    <form id="payment-form">
+                        <label for="cardholder-name">Nombre del Titular:</label>
+                        <input type="text" id="cardholder-name" required>
+
+                        <label for="card-number">Número de Tarjeta:</label>
+                        <input type="text" id="card-number" required>
+
+                        <label for="expiry-date">Fecha de Vencimiento:</label>
+                        <input type="text" id="expiry-date" placeholder="MM/YY" required>
+
+                        <button id="realizar-pago" class="btn btn-primary" onclick="procesarPago()">Realizar Pago</button>
+                    </form>
                 </div>
             </div>
         </div>

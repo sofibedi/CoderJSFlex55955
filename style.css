@@ -39,10 +39,9 @@ header {
   margin: 10px;
   background-color: #ffffff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Se ajusta el ancho para ocupar todo el espacio disponible */
+  width: 100%;
 }
 
-/* Ajustes para mostrar el catálogo en forma de cuadrícula */
 #catalogo {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -50,10 +49,9 @@ header {
 }
 
 .producto {
-  width: 100%; /* Ajuste necesario para que cada producto ocupe el ancho completo del contenedor de la cuadrícula */
+  width: 100%;
 }
 
-/* Otros estilos para mantener el formato del carrito */
 #carrito-container {
   border: 1px solid #ced4da;
   border-radius: 10px;
