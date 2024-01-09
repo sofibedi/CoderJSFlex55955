@@ -4,26 +4,25 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-  background-color: #f8f9fa;
-  /* Fondo gris claro */
+  padding-top: 56px;
+  background-image: url('https://st2.depositphotos.com/1792782/7302/v/950/depositphotos_73020137-stock-illustration-seamless-pattern-barber-shop.jpg');
+}
+
+.navbar.fixed-top {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.navbar.fixed-top.scrolled {
+  background-color: #343a40;
 }
 
 header {
-  background-color: #007bff;
-  /* Color azul suave */
+  background-color: #343a40;
   color: white;
   text-align: center;
   padding: 40px;
-}
-
-.banner {
-  max-width: 100%;
-  height: auto;
-  background-color: #dc3545;
-  /* Color bordo */
 }
 
 .container {
@@ -35,24 +34,20 @@ header {
 
 .producto {
   border: 1px solid #ced4da;
-  /* Borde gris claro */
   border-radius: 10px;
   padding: 15px;
   margin: 10px;
   background-color: #ffffff;
-  /* Fondo blanco */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 #carrito-container {
   border: 1px solid #ced4da;
-  /* Borde gris claro */
   border-radius: 10px;
   padding: 20px;
   margin-top: 20px;
   max-width: 300px;
   background-color: #ffffff;
-  /* Fondo blanco */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -63,7 +58,6 @@ header {
 
 #finalizar-compra {
   background-color: #dc3545;
-  /* Color rojo suave */
   color: white;
   padding: 10px;
   border: none;
@@ -72,7 +66,6 @@ header {
 
 .btn-agregar {
   background-color: #007bff;
-  /* Color azul suave */
   color: white;
   border: none;
   cursor: pointer;
@@ -80,7 +73,22 @@ header {
 
 .btn-agregar:hover {
   background-color: #0056b3;
-  /* Azul más oscuro al pasar el ratón */
   color: white;
 }
 
+/* Estilos adicionales para mejorar la estética */
+h2 {
+  color: #343a40;
+  /* Color gris oscuro para los títulos */
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #bb2d3b;
+  color: white;
+}
