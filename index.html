@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Los Santos Barber Shop - Tienda</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Santos Barber Shop - Tienda</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Los Santos Barber Shop</a>
+    </nav>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8" id="catalogo"></div>
+            <div class="col-md-4">
+                <h2>Carrito de Compras</h2>
+                <ul id="carrito-list"></ul>
+                <p id="carrito-total"></p>
+                <button id="finalizar-compra" class="btn btn-primary">Finalizar Compra</button>
 
-<!-- Barra de navegación de Bootstrap -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Los Santos Barber Shop</a>
-</nav>
-
-<!-- Contenido de la página -->
-<div class="container mt-4">
-  <div class="row">
-    <!-- Catálogo de productos -->
-    <div class="col-md-8" id="catalogo"></div>
-    
-    <!-- Carrito de compras -->
-    <div class="col-md-4">
-      <h2>Carrito de Compras</h2>
-      <ul id="carrito-list"></ul>
-      <p id="carrito-total"></p>
-      <button id="finalizar-compra" class="btn btn-primary">Finalizar Compra</button>
+                <div id="checkout-form" style="display: none;">
+                    <h2>Información de Pago</h2>
+                    <button id="realizar-pago" class="btn btn-primary">Realizar Pago</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<script src="scripts.js"></script>
+    <script src="scripts.js"></script>
 </body>
+
 </html>

@@ -12,7 +12,7 @@ const productos = [
   { id: 11, nombre: 'Bálsamo para Barba', precio: 28 },
 ];
 
-let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+let carrito = JSON.parse(sessionStorage.getItem('carrito')) || [];
 
 function agregarAlCarrito(id) {
   const producto = productos.find(prod => prod.id === id);
@@ -68,12 +68,27 @@ function renderizarCarrito() {
 
 function finalizarCompra() {
   if (carrito.length > 0) {
-    alert('¡Compra finalizada! Gracias por tu compra.');
-    carrito = [];
-    actualizarCarrito();
+    mostrarFormularioCheckout();
   } else {
     alert('No hay productos en el carrito. Agrega productos antes de finalizar la compra.');
   }
+}
+
+function mostrarFormularioCheckout() {
+  const checkoutFormElement = document.getElementById('checkout-form');
+  checkoutFormElement.style.display = 'block';
+}
+
+function procesarPago() {
+  alert('¡Pago realizado con éxito!');
+  carrito = [];
+  actualizarCarrito();
+  ocultarFormularioCheckout();
+}
+
+function ocultarFormularioCheckout() {
+  const checkoutFormElement = document.getElementById('checkout-form');
+  checkoutFormElement.style.display = 'none';
 }
 
 function initCatalogo() {
@@ -95,6 +110,9 @@ function initCarrito() {
   renderizarCarrito();
   const finalizarCompraButton = document.getElementById('finalizar-compra');
   finalizarCompraButton.addEventListener('click', finalizarCompra);
+
+  const realizarPagoButton = document.getElementById('realizar-pago');
+  realizarPagoButton.addEventListener('click', procesarPago);
 }
 
 initCatalogo();
