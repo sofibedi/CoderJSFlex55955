@@ -10,6 +10,8 @@ const productos = [
   { id: 9, nombre: 'Gel de Peinado', precio: 1210 },
   { id: 10, nombre: 'Capa de Barbero', precio: 1500 },
   { id: 11, nombre: 'Bálsamo para Barba', precio: 2800 },
+  { id: 12, nombre: 'Gel para Cabello', precio: 2800 },
+
 ];
 
 let carrito = JSON.parse(sessionStorage.getItem('carrito')) || [];
