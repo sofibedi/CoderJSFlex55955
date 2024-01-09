@@ -40,6 +40,9 @@ header {
   background-color: #ffffff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   width: 100%;
+  display: flex;
+  flex-direction: column; /* Alinear elementos internos en columna */
+  justify-content: space-between; /* Espaciado uniforme entre los elementos internos */
 }
 
 #catalogo {
@@ -48,8 +51,16 @@ header {
   grid-gap: 15px;
 }
 
-.producto {
+.producto .btn-agregar {
   width: 100%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.producto .btn-agregar:hover {
+  background-color: #0056b3;
 }
 
 #carrito-container {
@@ -75,22 +86,6 @@ header {
   padding: 10px;
   border: none;
   cursor: pointer;
-}
-
-.btn-agregar {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-agregar:hover {
-  background-color: #0056b3;
-  color: white;
-}
-
-h2 {
-  color: #343a40;
 }
 
 .btn-danger {
