@@ -56,6 +56,16 @@ header {
   display: flex;
   flex-direction: column; /* Alinear elementos internos en columna */
   justify-content: space-between; /* Espaciado uniforme entre los elementos internos */
+  position: relative;
+}
+
+.producto-imagen {
+  height: 150px; /* Ajusta la altura según tus necesidades */
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 #catalogo {
