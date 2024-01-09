@@ -1,3 +1,14 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const finalizarCompraButton = document.getElementById('finalizar-compra');
+  finalizarCompraButton.addEventListener('click', finalizarCompra);
+
+  const realizarPagoButton = document.getElementById('realizar-pago');
+  realizarPagoButton.addEventListener('click', procesarPago);
+
+  initCatalogo();
+  initCarrito();
+});
+
 const productos = [
   { id: 1, nombre: 'Corte de Pelo', precio: 2000 },
   { id: 2, nombre: 'Afeitado', precio: 1570 },
@@ -26,10 +37,9 @@ function mostrarNotificacion(mensaje, tipo) {
   notificacion.textContent = mensaje;
   notificacionesElement.appendChild(notificacion);
 
-  // Desaparece la notificación después de unos segundos (opcional)
   setTimeout(() => {
     notificacionesElement.removeChild(notificacion);
-  }, 3000); // Después de 3 segundos (ajusta según tus preferencias)
+  }, 3000);
 }
 
 function agregarAlCarrito(id) {
@@ -137,14 +147,4 @@ function initCatalogo() {
 
 function initCarrito() {
   renderizarCarrito();
-  const finalizarCompraButton = document.getElementById('finalizar-compra');
-  finalizarCompraButton.addEventListener('click', finalizarCompra);
-
-  const realizarPagoButton = document.getElementById('realizar-pago');
-  realizarPagoButton.addEventListener('click', procesarPago);
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  initCatalogo();
-  initCarrito();
-});
