@@ -3,7 +3,8 @@
   position: fixed;
   top: 10px;
   right: 10px;
-  z-index: 1100; /* Asegúrate de que el z-index sea mayor que el de la navbar */
+  z-index: 1100;
+  /* Asegúrate de que el z-index sea mayor que el de la navbar */
 }
 
 .alert {
@@ -29,7 +30,8 @@ body {
 
 .navbar.fixed-top.scrolled {
   background-color: #343a40;
-  z-index: 1100; /* Asegúrate de que el z-index sea mayor que el de las notificaciones cuando la navbar está fija */
+  z-index: 1100;
+  /* Asegúrate de que el z-index sea mayor que el de las notificaciones cuando la navbar está fija */
 }
 
 header {
