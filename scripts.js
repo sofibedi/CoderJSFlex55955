@@ -1,15 +1,15 @@
 const productos = [
-  { id: 1, nombre: 'Corte de Pelo', precio: 20 },
-  { id: 2, nombre: 'Afeitado', precio: 15 },
-  { id: 3, nombre: 'Crema para Barba', precio: 25 },
-  { id: 4, nombre: 'Navaja de Afeitar', precio: 30 },
-  { id: 5, nombre: 'Aceite para Barba', precio: 18 },
-  { id: 6, nombre: 'Set de Barbería Completo', precio: 80 },
-  { id: 7, nombre: 'Peine de Madera', precio: 10 },
-  { id: 8, nombre: 'Tijeras de Barbero', precio: 22 },
-  { id: 9, nombre: 'Gel de Peinado', precio: 12 },
-  { id: 10, nombre: 'Capa de Barbero', precio: 15 },
-  { id: 11, nombre: 'Bálsamo para Barba', precio: 28 },
+  { id: 1, nombre: 'Corte de Pelo', precio: 2000 },
+  { id: 2, nombre: 'Afeitado', precio: 1570 },
+  { id: 3, nombre: 'Crema para Barba', precio: 2570 },
+  { id: 4, nombre: 'Navaja de Afeitar', precio: 3050 },
+  { id: 5, nombre: 'Aceite para Barba', precio: 1800 },
+  { id: 6, nombre: 'Set de Barbería Completo', precio: 8000 },
+  { id: 7, nombre: 'Peine de Madera', precio: 1050 },
+  { id: 8, nombre: 'Tijeras de Barbero', precio: 2200 },
+  { id: 9, nombre: 'Gel de Peinado', precio: 1210 },
+  { id: 10, nombre: 'Capa de Barbero', precio: 1500 },
+  { id: 11, nombre: 'Bálsamo para Barba', precio: 2800 },
 ];
 
 let carrito = JSON.parse(sessionStorage.getItem('carrito')) || [];
