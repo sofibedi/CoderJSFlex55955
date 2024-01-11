@@ -107,15 +107,26 @@ header {
   padding: 10px;
   border: none;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
-.btn-danger {
-  background-color: #dc3545;
+#checkout-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#checkout-form input,
+#checkout-form button {
+  margin-bottom: 10px;
+}
+
+#realizar-pago {
+  background-color: #007bff;
   color: white;
   border: none;
+  cursor: pointer;
 }
 
-.btn-danger:hover {
-  background-color: #bb2d3b;
-  color: white;
+#realizar-pago:hover {
+  background-color: #0056b3;
 }
