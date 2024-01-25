@@ -31,15 +31,12 @@ function getProductById(id) {
 }
 
 function mostrarNotificacion(mensaje, tipo) {
-  const notificacionesElement = document.getElementById('notificaciones');
-  const notificacion = document.createElement('div');
-  notificacion.classList.add('alert', `alert-${tipo}`);
-  notificacion.textContent = mensaje;
-  notificacionesElement.appendChild(notificacion);
-
-  setTimeout(() => {
-    notificacionesElement.removeChild(notificacion);
-  }, 3000);
+  Swal.fire({
+    text: mensaje,
+    icon: tipo,
+    timer: 3000,
+    showConfirmButton: false
+  });
 }
 
 function agregarAlCarrito(id) {
@@ -84,9 +81,9 @@ function renderizarCarrito() {
   carrito.forEach(item => {
     const carritoItemElement = document.createElement('li');
     carritoItemElement.innerHTML = `
-          <span>${item.nombre} - $${item.precio.toFixed(2)}</span>
-          <button class="btn btn-danger btn-sm ml-2" onclick="quitarDelCarrito(${item.id})">Quitar</button>
-      `;
+        <span>${item.nombre} - $${item.precio.toFixed(2)}</span>
+        <button class="btn btn-danger btn-sm ml-2" onclick="quitarDelCarrito(${item.id})">Quitar</button>
+    `;
     carritoListElement.appendChild(carritoItemElement);
     total += item.precio;
   });
@@ -97,7 +94,7 @@ function renderizarCarrito() {
 function finalizarCompra() {
   if (carrito.length > 0) {
     mostrarFormularioCheckout();
-    document.getElementById('finalizar-compra').style.display = 'block'; // Asegúrate de agregar esta línea
+    document.getElementById('finalizar-compra').style.display = 'block';
   } else {
     mostrarNotificacion('No hay productos en el carrito. Agrega productos antes de finalizar la compra.', 'warning');
   }
@@ -139,11 +136,11 @@ function initCatalogo() {
     const productoElement = document.createElement('div');
     productoElement.classList.add('producto');
     productoElement.innerHTML = `
-          <h3>${producto.nombre}</h3>
-          <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-imagen">
-          <p>Precio: $${producto.precio.toFixed(2)}</p>
-          <button class="btn btn-agregar" data-id="${producto.id}">Agregar al Carrito</button>
-      `;
+        <h3>${producto.nombre}</h3>
+        <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-imagen">
+        <p>Precio: $${producto.precio.toFixed(2)}</p>
+        <button class="btn btn-agregar" data-id="${producto.id}">Agregar al Carrito</button>
+    `;
     catalogoElement.appendChild(productoElement);
 
     const btnAgregar = productoElement.querySelector('.btn-agregar');
