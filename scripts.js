@@ -1,12 +1,149 @@
+// API de Unsplash
+async function obtenerFotoAleatoria() {
+  try {
+    const response = await fetch('https://api.unsplash.com/photos/random?query=barbershop&client_id=IkSxnPsQnlR6P9xno0yHg8Fp8ZysP9e2zd0qzcpIYms');
+    const data = await response.json();
+
+    return data.urls.regular;
+  } catch (error) {
+    console.error('Error al obtener la foto aleatoria de Unsplash:', error);
+    return null;
+  }
+}
+
+//  Carrito
+const Carrito = {
+  carrito: [],
+
+  init() {
+    this.carrito = JSON.parse(sessionStorage.getItem('carrito')) || [];
+    this.renderizarCarrito();
+  },
+
+  getProductById(id) {
+    return productos.find(prod => prod.id === id);
+  },
+
+  mostrarNotificacion(mensaje, tipo) {
+    Swal.fire({
+      text: mensaje,
+      icon: tipo,
+      timer: 1500,
+      showConfirmButton: false
+    });
+  },
+
+  agregarAlCarrito(id) {
+    const producto = this.getProductById(id);
+    if (producto) {
+      this.carrito.push(producto);
+      this.actualizarCarrito();
+      this.mostrarNotificacion(`${producto.nombre} ha sido agregado al carrito.`, 'success');
+    } else {
+      this.mostrarNotificacion('El producto no existe.', 'danger');
+    }
+  },
+
+  quitarDelCarrito(id) {
+    const index = this.carrito.findIndex(item => item.id === id);
+    if (index !== -1) {
+      const productoQuitado = this.carrito.splice(index, 1)[0];
+      this.actualizarCarrito();
+      this.mostrarNotificacion(`${productoQuitado.nombre} ha sido eliminado del carrito.`, 'warning');
+    } else {
+      this.mostrarNotificacion('El producto no está en el carrito.', 'danger');
+    }
+  },
+
+  mostrarCarrito() {
+    console.table(this.carrito);
+  },
+
+  actualizarCarrito() {
+    sessionStorage.setItem('carrito', JSON.stringify(this.carrito));
+    this.renderizarCarrito();
+  },
+
+  renderizarCarrito() {
+    const carritoListElement = document.getElementById('carrito-list');
+    const carritoTotalElement = document.getElementById('carrito-total');
+
+    carritoListElement.innerHTML = '';
+
+    let total = 0;
+
+    this.carrito.forEach(item => {
+      const carritoItemElement = document.createElement('li');
+      carritoItemElement.innerHTML = `
+        <span>${item.nombre} - $${item.precio.toFixed(2)}</span>
+        <button class="btn btn-danger btn-sm ml-2" onclick="Carrito.quitarDelCarrito(${item.id})">Quitar</button>
+      `;
+      carritoListElement.appendChild(carritoItemElement);
+      total += item.precio;
+    });
+
+    carritoTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+  },
+
+  finalizarCompra() {
+    if (this.carrito.length > 0) {
+      this.mostrarFormularioCheckout();
+      document.getElementById('finalizar-compra').style.display = 'block';
+    } else {
+      this.mostrarNotificacion('No hay productos en el carrito. Agrega productos antes de finalizar la compra.', 'warning');
+    }
+  },
+
+  mostrarFormularioCheckout() {
+    const checkoutFormElement = document.getElementById('checkout-form');
+    checkoutFormElement.style.display = 'block';
+  },
+
+  procesarPago() {
+    const cardholderName = document.getElementById('cardholder-name').value;
+    const cardNumber = document.getElementById('card-number').value;
+    const expiryDate = document.getElementById('expiry-date').value;
+
+    if (cardholderName && cardNumber && expiryDate) {
+      this.mostrarNotificacion(`Pago realizado con éxito. Titular: ${cardholderName}, Número de Tarjeta: ${cardNumber}, Fecha de Vencimiento: ${expiryDate}`, 'success');
+      this.carrito = [];
+      this.actualizarCarrito();
+      this.ocultarFormularioCheckout();
+    } else {
+      this.mostrarNotificacion('Por favor, completa todos los campos del formulario de pago.', 'danger');
+    }
+  },
+
+  ocultarFormularioCheckout() {
+    const checkoutFormElement = document.getElementById('checkout-form');
+    checkoutFormElement.style.display = 'none';
+
+    document.getElementById('cardholder-name').value = '';
+    document.getElementById('card-number').value = '';
+    document.getElementById('expiry-date').value = '';
+  }
+};
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const urlFotoAleatoria = await obtenerFotoAleatoria();
+
+  if (urlFotoAleatoria) {
+    document.body.style.backgroundImage = `url('${urlFotoAleatoria}')`;
+    document.body.style.backgroundSize = 'cover';
+  }
+
+  // Inicializar el carrito
+  Carrito.init();
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const finalizarCompraButton = document.getElementById('finalizar-compra');
-  finalizarCompraButton.addEventListener('click', finalizarCompra);
+  finalizarCompraButton.addEventListener('click', () => Carrito.finalizarCompra());
 
   const realizarPagoButton = document.getElementById('realizar-pago');
-  realizarPagoButton.addEventListener('click', procesarPago);
+  realizarPagoButton.addEventListener('click', () => Carrito.procesarPago());
 
   initCatalogo();
-  initCarrito();
 });
 
 const productos = [
@@ -24,111 +161,6 @@ const productos = [
   { id: 12, nombre: 'Gel para Cabello', precio: 2800, imagen: 'img/descarga (2).jpeg' },
 ];
 
-let carrito = JSON.parse(sessionStorage.getItem('carrito')) || [];
-
-function getProductById(id) {
-  return productos.find(prod => prod.id === id);
-}
-
-function mostrarNotificacion(mensaje, tipo) {
-  Swal.fire({
-    text: mensaje,
-    icon: tipo,
-    timer: 3000,
-    showConfirmButton: false
-  });
-}
-
-function agregarAlCarrito(id) {
-  const producto = getProductById(id);
-  if (producto) {
-    carrito.push(producto);
-    actualizarCarrito();
-    mostrarNotificacion(`${producto.nombre} ha sido agregado al carrito.`, 'success');
-  } else {
-    mostrarNotificacion('El producto no existe.', 'danger');
-  }
-}
-
-function quitarDelCarrito(id) {
-  const index = carrito.findIndex(item => item.id === id);
-  if (index !== -1) {
-    const productoQuitado = carrito.splice(index, 1)[0];
-    actualizarCarrito();
-    mostrarNotificacion(`${productoQuitado.nombre} ha sido eliminado del carrito.`, 'warning');
-  } else {
-    mostrarNotificacion('El producto no está en el carrito.', 'danger');
-  }
-}
-
-function mostrarCarrito() {
-  console.table(carrito);
-}
-
-function actualizarCarrito() {
-  sessionStorage.setItem('carrito', JSON.stringify(carrito));
-  renderizarCarrito();
-}
-
-function renderizarCarrito() {
-  const carritoListElement = document.getElementById('carrito-list');
-  const carritoTotalElement = document.getElementById('carrito-total');
-
-  carritoListElement.innerHTML = '';
-
-  let total = 0;
-
-  carrito.forEach(item => {
-    const carritoItemElement = document.createElement('li');
-    carritoItemElement.innerHTML = `
-        <span>${item.nombre} - $${item.precio.toFixed(2)}</span>
-        <button class="btn btn-danger btn-sm ml-2" onclick="quitarDelCarrito(${item.id})">Quitar</button>
-    `;
-    carritoListElement.appendChild(carritoItemElement);
-    total += item.precio;
-  });
-
-  carritoTotalElement.textContent = `Total: $${total.toFixed(2)}`;
-}
-
-function finalizarCompra() {
-  if (carrito.length > 0) {
-    mostrarFormularioCheckout();
-    document.getElementById('finalizar-compra').style.display = 'block';
-  } else {
-    mostrarNotificacion('No hay productos en el carrito. Agrega productos antes de finalizar la compra.', 'warning');
-  }
-}
-
-function mostrarFormularioCheckout() {
-  const checkoutFormElement = document.getElementById('checkout-form');
-  checkoutFormElement.style.display = 'block';
-}
-
-function procesarPago() {
-  const cardholderName = document.getElementById('cardholder-name').value;
-  const cardNumber = document.getElementById('card-number').value;
-  const expiryDate = document.getElementById('expiry-date').value;
-
-  if (cardholderName && cardNumber && expiryDate) {
-    mostrarNotificacion(`Pago realizado con éxito. Titular: ${cardholderName}, Número de Tarjeta: ${cardNumber}, Fecha de Vencimiento: ${expiryDate}`, 'success');
-    carrito = [];
-    actualizarCarrito();
-    ocultarFormularioCheckout();
-  } else {
-    mostrarNotificacion('Por favor, completa todos los campos del formulario de pago.', 'danger');
-  }
-}
-
-function ocultarFormularioCheckout() {
-  const checkoutFormElement = document.getElementById('checkout-form');
-  checkoutFormElement.style.display = 'none';
-
-  document.getElementById('cardholder-name').value = '';
-  document.getElementById('card-number').value = '';
-  document.getElementById('expiry-date').value = '';
-}
-
 function initCatalogo() {
   const catalogoElement = document.getElementById('catalogo');
 
@@ -136,18 +168,11 @@ function initCatalogo() {
     const productoElement = document.createElement('div');
     productoElement.classList.add('producto');
     productoElement.innerHTML = `
-        <h3>${producto.nombre}</h3>
-        <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-imagen">
-        <p>Precio: $${producto.precio.toFixed(2)}</p>
-        <button class="btn btn-agregar" data-id="${producto.id}">Agregar al Carrito</button>
+      <h3>${producto.nombre}</h3>
+      <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-imagen">
+      <p>Precio: $${producto.precio.toFixed(2)}</p>
+      <button class="btn btn-agregar" data-id="${producto.id}" onclick="Carrito.agregarAlCarrito(${producto.id})">Agregar al Carrito</button>
     `;
     catalogoElement.appendChild(productoElement);
-
-    const btnAgregar = productoElement.querySelector('.btn-agregar');
-    btnAgregar.addEventListener('click', () => agregarAlCarrito(producto.id));
   });
-}
-
-function initCarrito() {
-  renderizarCarrito();
 }
