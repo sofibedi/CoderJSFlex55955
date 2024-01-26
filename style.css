@@ -7,7 +7,9 @@
 body {
   padding-top: 56px;
   background-image: url('https://st2.depositphotos.com/1792782/7302/v/950/depositphotos_73020137-stock-illustration-seamless-pattern-barber-shop.jpg');
-} /*Mantengo este fondo por si no funciona la API de Unplash*/
+}
+
+/*Mantengo este fondo por si no funciona la API de Unplash*/
 
 .navbar.fixed-top {
   z-index: 1000;
